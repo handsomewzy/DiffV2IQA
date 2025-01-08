@@ -35,21 +35,19 @@ the results demonstrate that the proposed model outperforms
 SOTA methods for NR-IQA. * 
 ---
 
-##Getting Started
-###Prerequisites
+## Getting Started
+### Prerequisites
 All required dependencies are listed in the requirements.txt file. Install them using the following command:
 
 ```
-bash
 pip install -r requirements.txt
 ```
 
-###Steps to Run
+### Steps to Run
 Generate High-Level Visual Compensation Images:
 Start by running the sr.py script located in the diffusion directory. This step generates high-level visual compensation images, which are essential for guiding the free-energy-based training network. Configuration parameters can be adjusted in the corresponding config file.
 
 ```
-bash
 python diffusion/sr.py
 ```
 
@@ -57,12 +55,13 @@ Train the Network:
 Next, run the main.py script to begin training. Ensure that all necessary file paths and parameters are correctly set in the configuration file before execution.
 
 ```
-bash
 python main.py
 ```
 
 By following these steps, you can successfully generate the required data and train the network.
 
+## Future Updates
+We will upload the corresponding pretrained weights for the diffusion model in future updates.
 
 ## Notes
 This work is developed based on the work of SR3, MANIQA, VCRNet articles and many thanks to them for sharing their code!
