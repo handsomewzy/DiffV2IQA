@@ -1,0 +1,102 @@
+{
+    "name": "livec_val",
+    "phase": "train", // train or val
+    "gpu_ids": [
+        // 0,1,2,3
+        0
+    ],
+    "path": { //set the path
+        "log": "logs",
+        "tb_logger": "tb_logger",
+        "results": "results",
+        "checkpoint": "checkpoint",
+        // "resume_state": null
+        // "resume_state": "experiments/sr_ffhq_210806_204158/checkpoint/I640000_E37" //pretrain model or training state
+        // "resume_state": "/mnt/workspace/workgroup/zhaoyang.wzy/SR3_VAE/16_128_I640000_E37"
+        // "resume_state": "/mnt/workspace/workgroup/zhaoyang.wzy/Image-Super-Resolution-via-Iterative-Refinement/experiments/tid2013_train01_231023_115721/checkpoint/I649000_E319"
+        "resume_state": "/home/vipsl416-10-wangzhaoyang/DIVIIQA/diff_sr/I796000_E1733"  // PIPAL
+        // "resume_state": "/mnt/workspace/workgroup/zhaoyang.wzy/Image-Super-Resolution-via-Iterative-Refinement/experiments/tid2013_train_all_231025_032356/checkpoint/I755000_E266"
+    },
+    "datasets": {
+        "train": {
+            "name": "FFHQ",
+            "mode": "HR", // whether need LR img
+            "dataroot": "/mnt/workspace/workgroup/zhaoyang.wzy/Image-Super-Resolution-via-Iterative-Refinement/dataset/celebahq_16_128",
+            "datatype": "live", //lmdb or img, path of img files
+            "l_resolution": 16, // low resolution need to super_resolution
+            "r_resolution": 128, // high resolution
+            "batch_size": 256,
+            "num_workers": 8,
+            "use_shuffle": true,
+            "data_len": -1 // -1 represents all data used in train
+        },
+        "val": {
+            "name": "CelebaHQ",
+            "mode": "live",
+            "dataroot": "/mnt/workspace/workgroup/zhaoyang.wzy/Image-Super-Resolution-via-Iterative-Refinement/dataset/celebahq_16_128",
+            "datatype": "waterpool", //lmdb or img, path of img files
+            "l_resolution": 16,
+            "r_resolution": 128,
+            "data_len": -1 // data length in validation 
+        }
+    },
+
+    "model": {
+        "which_model_G": "sr3", // use the ddpm or sr3 network structure
+        "finetune_norm": false,
+        "unet": {
+            "in_channel": 6,
+            "out_channel": 3,
+            "inner_channel": 64,
+            "channel_multiplier": [
+                1,
+                2,
+                4,
+                8,
+                8
+            ],
+            "attn_res": [
+                16
+            ],
+            "res_blocks": 2,
+            "dropout": 0.2
+        },
+        "beta_schedule": { // use munual beta_schedule for acceleration
+            "train": {
+                "schedule": "cosine",
+                "n_timestep": 2000,
+                "linear_start": 1e-6,
+                "linear_end": 1e-2
+            },
+            "val": {
+                "schedule": "cosine",
+                "n_timestep": 50,
+                "linear_start": 1e-6,
+                "linear_end": 1e-2
+            }
+        },
+        "diffusion": {
+            "image_size": 128,
+            "channels": 3, //sample channel
+            "conditional": true // unconditional generation or unconditional generation(super_resolution)
+        }
+    },
+    "train": {
+        "n_iter": 1000000,
+        "val_freq": 2000,
+        "save_checkpoint_freq": 2000,
+        "print_freq": 200,
+        "optimizer": {
+            "type": "adam",
+            "lr": 1e-5
+        },
+        "ema_scheduler": { // not used now
+            "step_start_ema": 5000,
+            "update_ema_every": 1,
+            "ema_decay": 0.9999
+        }
+    },
+    "wandb": {
+        "project": "sr_ffhq"
+    }
+}
