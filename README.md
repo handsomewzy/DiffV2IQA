@@ -1,12 +1,12 @@
 # DiffV2IQA
-This is the official code for DiffV2IQA.
 
-(Diffusion Model Based Visual Compensation
-Guidance and Visual Difference Analysis for
-No-Reference Image Quality Assessment, Zhaoyang Wang, Bo Hu, Mingyang Zhang, Jie Li, Leida Li, Maoguo Gong, Xinbo Gao)
+This repository contains the official implementation of **DiffV2IQA**:  
+*Diffusion Model Based Visual Compensation Guidance and Visual Difference Analysis for No-Reference Image Quality Assessment*  
+**Authors**: Zhaoyang Wang, Bo Hu, Mingyang Zhang, Jie Li, Leida Li, Maoguo Gong, Xinbo Gao
 
-The full code with training weights will be uploaded as soon as possible after our article is accepted.
+> The full codebase, including pretrained weights, will be uploaded after the article is accepted.
 
+---
 
 ## Network Architecture
 ![main_model.png](main_model.png)
@@ -33,6 +33,13 @@ branches to collaboratively perform quality evaluation. Extensive
 experiments are conducted on seven public NR-IQA datasets, and
 the results demonstrate that the proposed model outperforms
 SOTA methods for NR-IQA. * 
+---
+
+## Key Contributions  
+- **Novel Application of Diffusion Models in NR-IQA**: We introduce the first diffusion model for NR-IQA, leveraging high-level visual information for improved image restoration and quality assessment.  
+- **Interpretability and Performance**: Our model improves image quality restoration by aligning closely with the self-repair mechanisms of the human eye, providing greater interpretability and clearer insights into image restoration processes.  
+- **Dual-Branch Architecture**: We design two complementary branches to efficiently evaluate the quality of distorted images using high-level visual information, ensuring both restoration and quality assessment tasks are well-managed.
+
 ---
 
 ## Getting Started
